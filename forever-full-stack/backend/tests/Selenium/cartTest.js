@@ -1,12 +1,12 @@
-const { Builder, By, until } = require("selenium-webdriver");
-require("chromedriver");
+import { Builder, By, until } from "selenium-webdriver";
+import "chromedriver";
 
 const runCartTest = async () => {
   const driver = await new Builder().forBrowser("chrome").build();
 
   try {
-    await driver.get("http://localhost:3000/cart");
-    await driver.wait(until.elementLocated(By.css('.border-t.pt-14')), 5000);
+    await driver.get("http://localhost:5173/cart");
+    await driver.wait(until.elementLocated(By.css(".border-t.pt-14")), 5000);
 
     const cartItems = await driver.findElements(By.css('.grid.grid-cols-\\[4fr_0\\.5fr_0\\.5fr\\]'));
     if (cartItems.length === 0) {
@@ -24,7 +24,7 @@ const runCartTest = async () => {
 
     const proceedButton = await driver.findElement(By.xpath("//button[contains(text(), 'PROCEED TO CHECKOUT')]"));
     await proceedButton.click();
-    await driver.wait(until.urlIs("http://localhost:3000/place-order"), 5000);
+    await driver.wait(until.urlIs("http://localhost:5173/place-order"), 5000);
 
     console.log("Cart page test completed successfully");
   } catch (err) {
